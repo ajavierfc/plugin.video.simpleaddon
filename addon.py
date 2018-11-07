@@ -8,32 +8,51 @@ import urllib
 import urllib2
 from time import sleep
 
-settings = xbmcaddon.Addon(id='plugin.video.simpleaddon')
-
 
 def ADD_LINKS():
     img_path = xbmcaddon.Addon().getAddonInfo("path") + "/img/"
 
+    # mediaset (mitele)
     addLink('Boing', 'boing', 1, img_path + 'boing.png')
     addLink('Divinity', 'divinity', 1, img_path + 'divinity.png')
     addLink('FDF', 'fdf', 1, img_path + 'fdf.png')
     addLink('Energy', 'energy', 1, img_path + 'energy.png')
     addLink('BeMad', 'bemad', 1, img_path + 'bemad.png')
+
+    # atresmedia
     addLink('Antena 3', 'ANTENA_3', 2, img_path + 'antena3.png')
     addLink('La sexta', 'LA_SEXTA', 2, img_path + 'lasexta.png')
     addLink('Neox', 'NEOX', 2, img_path + 'neox.png')
     addLink('Nova', 'NOVA', 2, img_path + 'nova.png')
     addLink('Mega', 'MEGA', 2, img_path + 'mega.png')
     addLink('Atreseries', 'ATRESERIES', 2, img_path + 'atreseries.png')
+
+    # goltv
     addLink('GOL', 'golt', 3, img_path + 'golt.png')
+
+    # acestream
+    addLink('Acestream link', 'acestream://7452663b34b9390c83547c4f4c33163d62866459', 4, img_path + 'acestream.png')
+
+    # rtve
+    addLink('Teledeporte', 'tdp', 5, img_path + 'tdp.png')
+    addLink('La 1', 'tve1', 5, img_path + 'tve1.png')
+    addLink('La 2', 'tve2', 5, img_path + 'tve2.png')
+    addLink('TVE 24H', 'tve24h', 5, img_path + 'tve24h.png')
 
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 
 def PLAY_URL(url, name):
-    xbmc.log('URL=' + url)
+    xbmc.log('URL=' + url, xbmc.LOGNOTICE)
+
+    if 'acestream://' in url:
+        vurl = 'plugin://program.plexus/?mode=1&url=%s&name=%s&iconimage=' % (urllib.quote_plus(url), urllib.quote_plus(name))
+        xbmc.log('VURL=' + vurl, xbmc.LOGNOTICE)
+        xbmc.Player().play(vurl)
+        return
+
     progress = xbmcgui.DialogProgress()
-    progress.create("", name, "Espera unos segundos...")
+    progress.create("Simple Video Addon", name, "Espera unos segundos...")
     progress.update(0)
     if 'youtube.' in url:
         vurl = 'plugin://plugin.video.youtube/play/?video_id=' + url.split('=')[1]
@@ -139,6 +158,13 @@ def main():
     elif mode == 3:
         import lib.golt
         PLAY_URL(lib.golt.get_channel_link(), name)
+
+    elif mode == 4:
+        PLAY_URL('acestream://' + url.replace('acestream://', ''), name)
+
+    elif mode == 5:
+        import lib.rtve
+        PLAY_URL(lib.rtve.get_channel_link(url), name)
 
 
 if __name__ == "__main__":
