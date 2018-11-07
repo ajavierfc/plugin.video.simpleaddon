@@ -9,43 +9,51 @@ import urllib2
 from time import sleep
 
 
+NONLIB = 0
+MEDIASET = 1
+ATRESMEDIA = 2
+GOLTV = 3
+RTVE = 4
+
+
 def ADD_LINKS():
     img_path = xbmcaddon.Addon().getAddonInfo("path") + "/img/"
 
     # mediaset (mitele)
-    addLink('Boing', 'boing', 1, img_path + 'boing.png')
-    addLink('Divinity', 'divinity', 1, img_path + 'divinity.png')
-    addLink('FDF', 'fdf', 1, img_path + 'fdf.png')
-    addLink('Energy', 'energy', 1, img_path + 'energy.png')
-    addLink('BeMad', 'bemad', 1, img_path + 'bemad.png')
+    addLink('Boing', 'boing', MEDIASET, img_path + 'boing.png')
+    addLink('Divinity', 'divinity', MEDIASET, img_path + 'divinity.png')
+    addLink('FDF', 'fdf', MEDIASET, img_path + 'fdf.png')
+    addLink('Energy', 'energy', MEDIASET, img_path + 'energy.png')
+    addLink('BeMad', 'bemad', MEDIASET, img_path + 'bemad.png')
 
     # atresmedia
-    addLink('Antena 3', 'ANTENA_3', 2, img_path + 'antena3.png')
-    addLink('La sexta', 'LA_SEXTA', 2, img_path + 'lasexta.png')
-    addLink('Neox', 'NEOX', 2, img_path + 'neox.png')
-    addLink('Nova', 'NOVA', 2, img_path + 'nova.png')
-    addLink('Mega', 'MEGA', 2, img_path + 'mega.png')
-    addLink('Atreseries', 'ATRESERIES', 2, img_path + 'atreseries.png')
+    addLink('Antena 3', 'ANTENA_3', ATRESMEDIA, img_path + 'antena3.png')
+    addLink('La sexta', 'LA_SEXTA', ATRESMEDIA, img_path + 'lasexta.png')
+    addLink('Neox', 'NEOX', ATRESMEDIA, img_path + 'neox.png')
+    addLink('Nova', 'NOVA', ATRESMEDIA, img_path + 'nova.png')
+    addLink('Mega', 'MEGA', ATRESMEDIA, img_path + 'mega.png')
+    addLink('Atreseries', 'ATRESERIES', ATRESMEDIA, img_path + 'atreseries.png')
 
     # goltv
-    addLink('GOL', 'golt', 3, img_path + 'golt.png')
-
-    # acestream
-    addLink('Acestream link', 'acestream://7452663b34b9390c83547c4f4c33163d62866459', 4, img_path + 'acestream.png')
+    addLink('GOL', 'golt', GOLTV, img_path + 'golt.png')
 
     # rtve
-    addLink('Teledeporte', 'tdp', 5, img_path + 'tdp.png')
-    addLink('La 1', 'tve1', 5, img_path + 'tve1.png')
-    addLink('La 2', 'tve2', 5, img_path + 'tve2.png')
-    addLink('TVE 24H', 'tve24h', 5, img_path + 'tve24h.png')
+    addLink('Teledeporte', 'tdp', RTVE, img_path + 'tdp.png')
+    addLink('La 1', 'tve1', RTVE, img_path + 'tve1.png')
+    addLink('La 2', 'tve2', RTVE, img_path + 'tve2.png')
+    addLink('TVE 24H', 'tve24h', RTVE, img_path + 'tve24h.png')
 
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
+    # non module streams, acestream, youtube or any stream which does not depends on a lib/any.py module
+    #addLink('Acestream video', 'acestream://7452663b34b9390c83547c4f4c33163d62866459', NONLIB, img_path + 'acestream.png')
+    #addLink('Youtube video', 'https://www.youtube.com/watch?v=jHWPYEt8398', NONLIB, img_path + 'youtube.png')
+
+   xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 
 def PLAY_URL(url, name):
     xbmc.log('URL=' + url, xbmc.LOGNOTICE)
 
-    if 'acestream://' in url:
+    if 'acestream://' == url[0:12]:
         vurl = 'plugin://program.plexus/?mode=1&url=%s&name=%s&iconimage=' % (urllib.quote_plus(url), urllib.quote_plus(name))
         xbmc.log('VURL=' + vurl, xbmc.LOGNOTICE)
         xbmc.Player().play(vurl)
@@ -144,25 +152,22 @@ def main():
     if mode == None:
         ADD_LINKS()
 
-    elif mode == 0:
+    elif mode == NONLIB:
         PLAY_URL(url, name)
 
-    elif mode == 1:
+    elif mode == MEDIASET:
         import lib.mitele
         PLAY_URL(lib.mitele.get_channel_link(url), name)
 
-    elif mode == 2:
+    elif mode == ATRESMEDIA:
         import lib.atresplayer
         PLAY_URL(lib.atresplayer.get_channel_link(url), name)
 
-    elif mode == 3:
+    elif mode == GOLTV:
         import lib.golt
         PLAY_URL(lib.golt.get_channel_link(), name)
 
-    elif mode == 4:
-        PLAY_URL('acestream://' + url.replace('acestream://', ''), name)
-
-    elif mode == 5:
+    elif mode == RTVE:
         import lib.rtve
         PLAY_URL(lib.rtve.get_channel_link(url), name)
 
