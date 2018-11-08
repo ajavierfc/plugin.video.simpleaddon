@@ -12,7 +12,7 @@ else:
     from builtins import Exception
 
 __PLAYER = "mpv"
-__QUALITY_OPTION = 4 # 0..3
+__QUALITY_OPTION = -1 # 0..5
 __URL_LIST = {
     'tdp': 'http://hlsliveamdgl1-lh.akamaihd.net/i/hlslive_1@39733/master.m3u8',
     'tve1': 'http://hlsliveamdgl7-lh.akamaihd.net/i/hlslive_1@583043/master.m3u8',
