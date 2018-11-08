@@ -47,7 +47,7 @@ def ADD_LINKS():
     #addLink('Acestream video', 'acestream://7452663b34b9390c83547c4f4c33163d62866459', NONLIB, img_path + 'acestream.png')
     #addLink('Youtube video', 'https://www.youtube.com/watch?v=jHWPYEt8398', NONLIB, img_path + 'youtube.png')
 
-   xbmcplugin.endOfDirectory(int(sys.argv[1]))
+    xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 
 def PLAY_URL(url, name):
