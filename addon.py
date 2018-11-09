@@ -14,6 +14,7 @@ MEDIASET = 1
 ATRESMEDIA = 2
 GOLTV = 3
 RTVE = 4
+URLRESOLVER = 5
 
 
 def ADD_LINKS():
@@ -42,6 +43,9 @@ def ADD_LINKS():
     addLink('La 1', 'tve1', RTVE, img_path + 'tve1.png')
     addLink('La 2', 'tve2', RTVE, img_path + 'tve2.png')
     addLink('TVE 24H', 'tve24h', RTVE, img_path + 'tve24h.png')
+
+    # urlresolver
+    addLink("Malasia Moto GP", "https://openload.co/embed/SpvdVqeBTsw/MotoGP.Malasia.2018.Carrera.HDTV.720p.EveHQ.mp4", URLRESOLVER)
 
     # non module streams, acestream, youtube or any stream which does not depends on a lib/any.py module
     #addLink('Acestream video', 'acestream://7452663b34b9390c83547c4f4c33163d62866459', NONLIB, img_path + 'acestream.png')
@@ -170,6 +174,10 @@ def main():
     elif mode == RTVE:
         import lib.rtve
         PLAY_URL(lib.rtve.get_channel_link(url), name)
+
+    elif mode == URLRESOLVER:
+        import urlresolver
+        PLAY_URL(urlresolver.resolve(url), name)
 
 
 if __name__ == "__main__":
