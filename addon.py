@@ -21,11 +21,11 @@ def ADD_LINKS():
     img_path = xbmcaddon.Addon().getAddonInfo("path") + "/img/"
 
     # mediaset (mitele)
-    addLink('Boing', 'boing', MEDIASET, img_path + 'boing.png')
-    addLink('Divinity', 'divinity', MEDIASET, img_path + 'divinity.png')
-    addLink('FDF', 'fdf', MEDIASET, img_path + 'fdf.png')
-    addLink('Energy', 'energy', MEDIASET, img_path + 'energy.png')
-    addLink('BeMad', 'bemad', MEDIASET, img_path + 'bemad.png')
+    #addLink('Boing', 'boing', MEDIASET, img_path + 'boing.png')
+    #addLink('Divinity', 'divinity', MEDIASET, img_path + 'divinity.png')
+    #addLink('FDF', 'fdf', MEDIASET, img_path + 'fdf.png')
+    #addLink('Energy', 'energy', MEDIASET, img_path + 'energy.png')
+    #addLink('BeMad', 'bemad', MEDIASET, img_path + 'bemad.png')
 
     # atresmedia
     addLink('Antena 3', 'ANTENA_3', ATRESMEDIA, img_path + 'antena3.png')
