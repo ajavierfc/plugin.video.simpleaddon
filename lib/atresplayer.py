@@ -11,7 +11,7 @@ if sys.version_info[0] < 3:
 else:
     from builtins import Exception
 
-__PLAYER = "mpv"
+__PLAYER = ["mpv", "--border=no"]
 __QUALITY_OPTION = 1 # 0..3
 
 def get_link(session, channel):
@@ -76,4 +76,4 @@ if __name__ == '__main__':
 
             channel = channels[int(input('\nEnter channel index: '))]
 
-            subprocess.call([__PLAYER, get_link(s, channel)])
+            subprocess.call(__PLAYER + [get_link(s, channel)])

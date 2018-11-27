@@ -11,7 +11,7 @@ if sys.version_info[0] < 3:
 else:
     from builtins import Exception
 
-__PLAYER = "mpv"
+__PLAYER = ["mpv", "--border=no"]
 __QUALITY_OPTION = -1 # 0..5
 __URL_LIST = {
     'tdp': 'http://hlsliveamdgl1-lh.akamaihd.net/i/hlslive_1@39733/master.m3u8',
@@ -63,4 +63,4 @@ if __name__ == '__main__':
 
             channel = channels[int(input('\nEnter channel index: '))]
 
-            subprocess.call([__PLAYER, get_link(s, channel)])
+            subprocess.call(__PLAYER + [get_link(s, channel)])
