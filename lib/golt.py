@@ -12,7 +12,7 @@ else:
     from builtins import Exception
 
 __PLAYER = ["mpv", "--border=no"]
-__QUALITY_OPTION = 2 # 0..3
+__QUALITY_OPTION = 0 # 0..3
 
 def get_link(session):
     session.headers.update({

@@ -21,11 +21,13 @@ def ADD_LINKS():
     img_path = xbmcaddon.Addon().getAddonInfo("path") + "/img/"
 
     # mediaset (mitele)
-    #addLink('Boing', 'boing', MEDIASET, img_path + 'boing.png')
-    #addLink('Divinity', 'divinity', MEDIASET, img_path + 'divinity.png')
-    #addLink('FDF', 'fdf', MEDIASET, img_path + 'fdf.png')
-    #addLink('Energy', 'energy', MEDIASET, img_path + 'energy.png')
-    #addLink('BeMad', 'bemad', MEDIASET, img_path + 'bemad.png')
+    addLink('Boing', 'boing', MEDIASET, img_path + 'boing.png')
+    addLink('Divinity', 'divinity', MEDIASET, img_path + 'divinity.png')
+    addLink('FDF', 'fdf', MEDIASET, img_path + 'fdf.png')
+    addLink('Energy', 'energy', MEDIASET, img_path + 'energy.png')
+    addLink('BeMad', 'bemad', MEDIASET, img_path + 'bemad.png')
+    addLink('Cuatro', 'cuatro', MEDIASET, img_path + 'cuatro.png')
+    addLink('Telecinco', 'telecinco', MEDIASET, img_path + 'telecinco.png')
 
     # atresmedia
     addLink('Antena 3', 'ANTENA_3', ATRESMEDIA, img_path + 'antena3.png')
@@ -45,17 +47,18 @@ def ADD_LINKS():
     addLink('TVE 24H', 'tve24h', RTVE, img_path + 'tve24h.png')
 
     # urlresolver
-    addLink("Malasia Moto GP", "https://openload.co/embed/SpvdVqeBTsw/MotoGP.Malasia.2018.Carrera.HDTV.720p.EveHQ.mp4", URLRESOLVER)
+    #addLink("Malasia Moto GP", "https://openload.co/embed/SpvdVqeBTsw/MotoGP.Malasia.2018.Carrera.HDTV.720p.EveHQ.mp4", URLRESOLVER)
+    #addLink("Your Name", "https://yadi.sk/i/iDiKbJey3ZEgoo", URLRESOLVER)
 
     # non module streams, acestream, youtube or any stream which does not depends on a lib/any.py module
-    #addLink('Acestream video', 'acestream://7452663b34b9390c83547c4f4c33163d62866459', NONLIB, img_path + 'acestream.png')
+    #addLink('PSGLIV', 'acestream://4bc59d13698aa53146275b801b9e0e95d55f5e79', NONLIB, img_path + 'acestream.png')
     #addLink('Youtube video', 'https://www.youtube.com/watch?v=jHWPYEt8398', NONLIB, img_path + 'youtube.png')
 
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 
 def PLAY_URL(url, name):
-    xbmc.log('URL=' + url, xbmc.LOGNOTICE)
+    xbmc.log('URL=' + str(url), xbmc.LOGNOTICE)
 
     if 'acestream://' == url[0:12]:
         vurl = 'plugin://program.plexus/?mode=1&url=%s&name=%s&iconimage=' % (urllib.quote_plus(url), urllib.quote_plus(name))
